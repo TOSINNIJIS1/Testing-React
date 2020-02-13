@@ -1,9 +1,9 @@
 import axios from "axios";
 export const getData = async url => {
-  try {
+    try {
     const res = await axios.get(url);
     return res.data;
-  } catch (err) {
+    } catch (err) {
     throw new Error(err);
-  }
+    }
 };
