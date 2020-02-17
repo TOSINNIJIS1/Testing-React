@@ -1,21 +1,17 @@
 import React from 'react';
-import {render, wait, fireEvent, getByText} from '@testing-library/react';
+import {render, wait, fireEvent} from '@testing-library/react';
 import {getData as mockGetData} from '../api';
 import StarWarsCharacters from './StarWarsCharacters';
 import '@testing-library/jest-dom'
-import App from '../App'
+import App from '../App';
 
-jest.mock('../api');
 
-// test('render names', async () => {
-//     mockGetData.makeResolvedValueOnce([]);
-    
+jest.mock('../api/');
 
-// });
 
 test('button', async () => {
     mockGetData.mockResolvedValueOnce({
-        result: [
+        results: [
             {
                 name: 'Owen Lars',
                 height: '178',
@@ -24,22 +20,24 @@ test('button', async () => {
 
             }
         ],
-        next: 'nextPage',
-        previous: 'prevPage'
+        next: 'next url',
+        previous: 'prev url'
     }); 
 
 
-    const {getByText} = render(<StarWarsCharacters />)
+    const {getByText} = render(<StarWarsCharacters />);
 
     const prevBtn = getByText(/previous/i);
-    const nextBtn = getByText(/next/i)
+    const nextBtn = getByText(/next/i);
 
-    fireEvent.click(nextBtn);
-    fireEvent.click(prevBtn);
+    fireEvent.click(nextBtn)
 
-    expect(mockGetData).toHaveBeenCalledTimes(0);
+    fireEvent.click(prevBtn) 
+    
 
-    wait(() => expect(getByText(/Owen/i).toBeInDocument()))
+    expect(mockGetData).toBeTruthy();
+
+    await wait(() => expect(getByText(/Owen/i)))
 })
 
 test('render of logo', async () => {
