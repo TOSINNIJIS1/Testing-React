@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Loader from "react-loader-spinner";
 
-import { getData } from "../api";
+import { getData } from "../api/getData";
 import "./star-wars-characters.css";
 
 export default function StarWarsCharacters() {
@@ -45,7 +45,7 @@ export default function StarWarsCharacters() {
         />
       ) : (
         <>
-          {characters.map(character => (
+          {characters.map((character) => (
             <div key={character.url}>{character.name}</div>
           ))}
         </>
